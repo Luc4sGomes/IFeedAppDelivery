@@ -134,7 +134,7 @@ public class CartListActivity extends AppCompatActivity {
         long id = comidaDAO.inserir(comida);
         Toast.makeText(this, "Comida Salva, id: "+id, Toast.LENGTH_LONG).show();**/
         Context context = getApplicationContext();
-        CharSequence text = "FALA GALERINHA!";
+        CharSequence text = "pedido salvo";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
