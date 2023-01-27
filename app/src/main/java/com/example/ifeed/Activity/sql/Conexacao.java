@@ -19,7 +19,7 @@ public class Conexacao extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE pedidos (id INTEGER primary key autoincrement, nome VARCHAR(30), description VARCHAR(50), valor DOUBLE)");
+        db.execSQL("CREATE TABLE pedidos (id INTEGER primary key autoincrement, nome VARCHAR(30), description VARCHAR(50), valor DOUBLE(4))");
 
     }
 

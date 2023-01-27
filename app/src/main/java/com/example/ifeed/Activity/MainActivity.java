@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         category.add(new CategoryDomain("sausages","cat1"));
         category.add(new CategoryDomain("steaks","cat_1"));
 
+
         adapter = new CategoryAdaptor(category);
         recyclerViewCategoryList.setAdapter(adapter);
     }

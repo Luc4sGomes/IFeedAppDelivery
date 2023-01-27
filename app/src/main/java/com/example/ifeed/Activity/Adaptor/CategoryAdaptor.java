@@ -39,6 +39,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
 
     public CategoryAdaptor(ArrayList<CategoryDomain> categoryDomains) {
         this.categoryDomains = categoryDomains;
+
     }
 
     @NonNull
@@ -59,12 +60,6 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
         Retrofit retrofit = builder.build();
 
         HomeMenuFood comidas = retrofit.create(HomeMenuFood.class);
-
-
-
-
-
-
 
             String picUrl = "";
         switch (position) {
@@ -158,19 +153,11 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
             @Override
             public void onClick(View v) {
                 row_index = position;
-                if (position == 0) {
-                    Call<List<HomeFoodModel>> call = comidas.ourFoodsForHome();
-                    call.enqueue(new Callback<List<HomeFoodModel>>() {
-                        @Override
-                        public void onResponse(Call<List<HomeFoodModel>> call, Response<List<HomeFoodModel>> response) {
-                            response.getClass();
-                        }
+                notifyDataSetChanged();
 
-                        @Override
-                        public void onFailure(Call<List<HomeFoodModel>> call, Throwable t) {
-                            t.printStackTrace();
-                        }
-                    });
+                if (row_index == position) {
+                    Call<List<HomeFoodModel>> call = comidas.ourFoodsForHome();
+                    functionCall(call, position);
 
 
                 } else if (position == 1) {
@@ -230,7 +217,6 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
         });
 
 
-
         //
         int drawableResourceId = holder.itemView.getContext().getResources().getIdentifier(picUrl, "drawable", holder.itemView.getContext().getOpPackageName());
 
@@ -257,5 +243,25 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
         }
     }
 
+    private void functionCall(Call<List<HomeFoodModel>> call, int position) {
+        call.enqueue(new Callback<List<HomeFoodModel>>() {
+            @Override
+            public void onResponse(Call<List<HomeFoodModel>> call, Response<List<HomeFoodModel>> response) {
+                if(response.isSuccessful()) {
+                    ArrayList<HomeFoodModel> comidasList = (ArrayList<HomeFoodModel>)response.body();
+                    updateFoodsRec.callBack(position, comidasList);
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<HomeFoodModel>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
 
 }
+
