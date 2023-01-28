@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ifeed.Activity.Domain.FoodDomain;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PopularAdaptor extends RecyclerView.Adapter<PopularAdaptor.ViewHolder> {
 
     ArrayList<FoodDomain> popularFood;
+    RatingBar simpleRatingBar;
 
     public PopularAdaptor(ArrayList<FoodDomain> popularFood) {
         this.popularFood = popularFood;
@@ -29,6 +32,8 @@ public class PopularAdaptor extends RecyclerView.Adapter<PopularAdaptor.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_popular, parent, false);
+
+
         return new ViewHolder(inflate);
     }
 
@@ -63,12 +68,24 @@ public class PopularAdaptor extends RecyclerView.Adapter<PopularAdaptor.ViewHold
         ImageView pic;
         TextView addBtn;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title2 = itemView.findViewById(R.id.title2);
             fee = itemView.findViewById(R.id.fee);
             pic = itemView.findViewById(R.id.pic);
             addBtn = itemView.findViewById(R.id.addBtn);
+            simpleRatingBar = itemView.findViewById(R.id.rtb); // initiate a rating bar
+
+            Float ratingNumber = simpleRatingBar.getRating(); // get rating number from a rating bar
+            int numberOfStars = simpleRatingBar.getNumStars(); // get total number of stars of rating bar
+
+            simpleRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                }
+            });
+
         }
     }
 }
